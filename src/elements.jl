@@ -26,7 +26,9 @@ element = Element(Tri3, [89, 43, 12])
 ![img](figs/mesh.png)
 """
 function Element(::Type{E}, connectivity::Vector{Int}) where E<:AbstractBasis
-    return Element{E}(-1, connectivity, [], Dict(), E())
+    El = E()
+    @assert length(El) <= length(connectivity) "Element connectivity is incompatible with the element type"
+    return Element{E}(-1, connectivity, [], Dict(), El)
 end
 
 """
